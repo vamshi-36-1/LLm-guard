@@ -1,0 +1,17 @@
+groups:
+  - name: llm-guard-dlp
+    rules:
+      - alert: DLPServiceDown
+        expr: up{job="llm-guard-dlp"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "LLM-Guard DLP service is down"
+      - alert: DLPHighBlockRate
+        expr: rate(dlp_blocks_total[5m]) > 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "DLP block rate is elevated"

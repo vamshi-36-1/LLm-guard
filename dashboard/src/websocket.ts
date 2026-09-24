@@ -1,0 +1,2 @@
+import type {Event} from './types';
+export function connectEvents(onEvent:(event:Event)=>void,onStatus:(s:string)=>void){const base=import.meta.env.VITE_DLP_WS_URL || 'ws://localhost:8001/ws/events'; let ws:WebSocket|undefined; let stopped=false; const connect=()=>{if(stopped)return; ws=new WebSocket(base); ws.onopen=()=>onStatus('live'); ws.onmessage=e=>{try{onEvent(JSON.parse(e.data))}catch{}}; ws.onclose=()=>{onStatus('reconnecting'); if(!stopped)setTimeout(connect,1500)}; ws.onerror=()=>onStatus('error')}; connect(); return ()=>{stopped=true;ws?.close()};}
