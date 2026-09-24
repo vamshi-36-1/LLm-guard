@@ -1,0 +1,2 @@
+import type {Event} from '../types';
+export function EventsTable({events}:{events:Event[]}){return <section><h2>Live events</h2><div className="tableWrap"><table><thead><tr><th>Time</th><th>Type</th><th>Direction</th><th>Entities</th><th>Status</th></tr></thead><tbody>{events.map((e,i)=><tr key={i}><td>{e.timestamp}</td><td>{e.event_type}</td><td>{e.direction||'-'}</td><td>{(e.entity_types||e.blocked_entities||[]).join(', ')||'-'}</td><td>{e.allowed===false?'BLOCKED':'OK'}</td></tr>)}</tbody></table></div></section>}

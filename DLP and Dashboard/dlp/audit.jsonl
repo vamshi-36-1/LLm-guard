@@ -1,0 +1,14 @@
+{"timestamp": "2026-09-24T19:33:59.297826+00:00", "event_type": "redaction", "direction": "input", "entity_types": ["EMAIL_ADDRESS", "URL"], "count": 2}
+{"timestamp": "2026-09-24T19:33:59.340079+00:00", "event_type": "redaction", "direction": "input", "entity_types": ["API_KEY"], "count": 1}
+{"timestamp": "2026-09-24T19:34:54.710430+00:00", "event_type": "redaction", "direction": "input", "entity_types": ["EMAIL_ADDRESS", "URL"], "count": 2}
+{"timestamp": "2026-09-24T19:34:54.731559+00:00", "event_type": "redaction", "direction": "input", "entity_types": ["API_KEY"], "count": 1}
+{"timestamp": "2026-09-24T19:34:54.885217+00:00", "event_type": "validation", "allowed": false, "blocked_entities": ["EMAIL_ADDRESS"]}
+{"timestamp": "2026-09-24T19:51:34.056549+00:00", "event_type": "redaction", "direction": "input", "entity_types": ["EMAIL_ADDRESS", "URL"], "count": 2}
+{"timestamp": "2026-09-24T19:51:34.573623+00:00", "event_type": "validation", "allowed": false, "blocked_entities": ["EMAIL_ADDRESS"]}
+{"timestamp": "2026-09-24T19:53:16.600976+00:00", "event_type": "redaction", "direction": "input", "entity_types": ["EMAIL_ADDRESS", "URL"], "count": 2}
+{"timestamp": "2026-09-24T19:53:17.060792+00:00", "event_type": "validation", "allowed": false, "blocked_entities": ["EMAIL_ADDRESS"]}
+{"timestamp": "2026-09-24T19:55:44.713273+00:00", "event_type": "redaction", "direction": "input", "entity_types": ["EMAIL_ADDRESS", "URL"], "count": 2}
+{"timestamp": "2026-09-24T19:55:44.840298+00:00", "event_type": "redaction", "direction": "input", "entity_types": ["API_KEY"], "count": 1}
+{"timestamp": "2026-09-24T19:55:45.022795+00:00", "event_type": "validation", "allowed": false, "blocked_entities": ["EMAIL_ADDRESS"]}
+{"timestamp": "2026-09-24T20:05:45.476958+00:00", "event_type": "jailbreak_blocked", "direction": "input", "confidence": 0.9046438810762922}
+{"timestamp": "2026-09-24T20:05:58.741779+00:00", "event_type": "jailbreak_blocked", "direction": "input", "confidence": 0.95}
