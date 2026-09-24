@@ -1,0 +1,29 @@
+services:
+  dlp:
+    build: ./dlp
+    ports:
+      - "8001:8001"
+    environment:
+      DLP_AUDIT_PATH: /data/audit.jsonl
+      DLP_TOKEN_SECRET: change-me-in-development
+    volumes:
+      - dlp_data:/data
+
+  dashboard:
+    build: ./dashboard
+    ports:
+      - "3000:80"
+    depends_on:
+      - dlp
+
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - dlp
+
+volumes:
+  dlp_data:
