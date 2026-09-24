@@ -1,6 +1,6 @@
 """
 LLM-Guard: Latency-Optimized Proxy with Prometheus Monitoring
-Person 1 - Week 3
+Week 3
 Integrated rate limiting, circuit breaker, and Prometheus metrics
 """
 
@@ -14,10 +14,10 @@ from typing import Optional
 import time
 
 # Import our components
-from rate_limiter import RateLimitingManager
-from monitoring_week3 import PrometheusMetrics, LatencyTracker, RequestTracer, PerformanceOptimizer
+from rate_limiter_circuitbreaker import RateLimitingManager
+from monitoring_metrics import PrometheusMetrics, LatencyTracker, RequestTracer, PerformanceOptimizer
 
-sys.path.append("E:/Coding/PyCharm/LLM Guard/Jailbreak Detection/Jailbreak Detection System")
+sys.path.append("../Jailbreak Detection System")
 try:
     from hybrid_detector import HybridDetector
 except ImportError:
@@ -46,8 +46,8 @@ logger.info("🚀 Initializing LLM-Guard Optimized Proxy (Week 3)...")
 # Detector
 try:
     detector = HybridDetector(
-        ml_model_path="E:/Coding\PyCharm/LLM Guard/Jailbreak Detection/Jailbreak Detection System/models/jailbreak_svm_v1.pkl",
-        rules_file="E:/Coding/PyCharm/LLM Guard/Jailbreak Detection/Jailbreak Detection System/jailbreak_patterns.json"
+        ml_model_path="../Jailbreak Detection System/models/jailbreak_svm_v1.pkl",
+        rules_file="../Jailbreak Detection System/jailbreak_patterns.json"
     )
     logger.info("✅ Detector initialized")
 except Exception as e:

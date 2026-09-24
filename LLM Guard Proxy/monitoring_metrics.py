@@ -1,6 +1,6 @@
 """
 LLM-Guard: Latency Optimization & Prometheus Monitoring
-Person 1 - Week 3
+Week 3
 Performance profiling, metrics export, and distributed tracing
 """
 

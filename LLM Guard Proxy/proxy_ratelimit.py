@@ -1,6 +1,6 @@
 """
 LLM-Guard: Advanced Proxy with Rate Limiting & Circuit Breaker
-Person 1 - Week 2
+Week 2
 Integrates rate limiting, request queueing, and circuit breaker
 """
 
@@ -13,9 +13,9 @@ import sys
 from typing import Optional
 
 # Import rate limiting components
-from rate_limiter import RateLimitingManager, CircuitBreaker
+from rate_limiter_circuitbreaker import RateLimitingManager, CircuitBreaker
 
-sys.path.append("E:/Coding/PyCharm/LLM Guard/Jailbreak Detection/Jailbreak Detection System")
+sys.path.append("../Jailbreak Detection System")
 try:
     from hybrid_detector import HybridDetector
 except ImportError:
@@ -44,8 +44,8 @@ logger.info("🚀 Initializing LLM-Guard Advanced Proxy...")
 # Detector
 try:
     detector = HybridDetector(
-        ml_model_path="E:/Coding\PyCharm/LLM Guard/Jailbreak Detection/Jailbreak Detection System/models/jailbreak_svm_v1.pkl",
-        rules_file="E:/Coding/PyCharm/LLM Guard/Jailbreak Detection/Jailbreak Detection System/jailbreak_patterns.json"
+        ml_model_path="../Jailbreak Detection System/models/jailbreak_svm_v1.pkl",
+        rules_file="../Jailbreak Detection System/jailbreak_patterns.json"
     )
     logger.info("✅ Detector initialized")
 except Exception as e:
@@ -317,6 +317,6 @@ if __name__ == "__main__":
     uvicorn.run(
         app,
         host="0.0.0.0",
-        port=8888,  # Person 1 uses port 8888
+        port=8888,
         log_level="info"
     )

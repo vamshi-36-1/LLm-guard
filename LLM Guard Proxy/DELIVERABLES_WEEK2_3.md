@@ -1,7 +1,7 @@
-# Person 1: Week 2-3 Complete Deliverables
+# Week 2-3 Complete Deliverables
 
-**Person 1: Backend Lead (Proxy & Infrastructure)**  
-**Weeks:** 2 & 3 (80 hours)  
+**Backend Lead (Proxy & Infrastructure)**  
+**Weeks:** 2 & 3
 **Status:** ✅ COMPLETE & READY TO DEPLOY
 
 ---

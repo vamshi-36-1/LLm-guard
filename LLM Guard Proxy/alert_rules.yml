@@ -1,0 +1,146 @@
+groups:
+  - name: llm-guard-proxy
+    interval: 30s
+    rules:
+      # CRITICAL: High Error Rate
+      - alert: HighErrorRate
+        expr: 'rate(http_requests_total{status="errors"}[5m]) > 0.05'
+        for: 2m
+        labels:
+          severity: critical
+          service: llm-guard-proxy
+        annotations:
+          summary: 'High error rate (>5%)'
+          description: 'Error rate is {{ $value | humanizePercentage }}'
+
+      # CRITICAL: Proxy Down
+      - alert: ProxyDown
+        expr: 'up{job="llm-guard-proxy"} == 0'
+        for: 1m
+        labels:
+          severity: critical
+          service: llm-guard-proxy
+        annotations:
+          summary: 'LLM-Guard Proxy is down'
+          description: 'Proxy has been unreachable for > 1 minute'
+
+      # CRITICAL: High Latency
+      - alert: HighLatency
+        expr: 'histogram_quantile(0.99, rate(http_request_duration_ms_bucket[5m])) > 100'
+        for: 3m
+        labels:
+          severity: critical
+          service: llm-guard-proxy
+        annotations:
+          summary: 'P99 latency exceeds 100ms'
+          description: 'P99 latency: {{ $value | humanize }}ms'
+
+      # CRITICAL: Circuit Breaker Open
+      - alert: CircuitBreakerOpen
+        expr: 'circuit_breaker_state == 2'
+        for: 30s
+        labels:
+          severity: critical
+          service: llm-guard-proxy
+        annotations:
+          summary: 'Circuit breaker is OPEN'
+          description: 'Upstream service is unavailable'
+
+      # WARNING: Elevated Error Rate
+      - alert: ElevatedErrorRate
+        expr: 'rate(http_requests_total{status="errors"}[5m]) > 0.01'
+        for: 5m
+        labels:
+          severity: warning
+          service: llm-guard-proxy
+        annotations:
+          summary: 'Elevated error rate (>1%)'
+          description: 'Error rate: {{ $value | humanizePercentage }}'
+
+      # WARNING: Elevated Latency
+      - alert: ElevatedLatency
+        expr: 'histogram_quantile(0.95, rate(http_request_duration_ms_bucket[5m])) > 75'
+        for: 5m
+        labels:
+          severity: warning
+          service: llm-guard-proxy
+        annotations:
+          summary: 'P95 latency elevated (>75ms)'
+          description: 'P95 latency: {{ $value | humanize }}ms'
+
+      # WARNING: High Rate Limited Requests
+      - alert: HighRateLimited
+        expr: 'rate(http_requests_total{status="rate_limited"}[5m]) > 0.1'
+        for: 2m
+        labels:
+          severity: warning
+          service: llm-guard-proxy
+        annotations:
+          summary: 'High rate of rate-limited requests'
+          description: 'Rate-limited requests: {{ $value | humanize }}/sec'
+
+      # WARNING: Queue Depth High
+      - alert: QueueDepthHigh
+        expr: 'queue_depth > 50'
+        for: 3m
+        labels:
+          severity: warning
+          service: llm-guard-proxy
+        annotations:
+          summary: 'Request queue depth is high'
+          description: 'Queue depth: {{ $value }}'
+
+      # WARNING: Circuit Breaker Half-Open
+      - alert: CircuitBreakerHalfOpen
+        expr: 'circuit_breaker_state == 1'
+        for: 1m
+        labels:
+          severity: warning
+          service: llm-guard-proxy
+        annotations:
+          summary: 'Circuit breaker is HALF_OPEN (recovering)'
+          description: 'Attempting to recover from failure'
+
+      # INFO: Many Jailbreak Attempts
+      - alert: ManyJailbreakAttempts
+        expr: 'rate(http_requests_total{status="jailbreak_blocked"}[5m]) > 0.5'
+        for: 5m
+        labels:
+          severity: info
+          service: llm-guard-proxy
+        annotations:
+          summary: 'High volume of jailbreak attempts detected'
+          description: 'Jailbreak attempts: {{ $value | humanize }}/sec'
+
+      # SLA: Success Rate Below Target
+      - alert: LowSuccessRate
+        expr: '(rate(http_requests_total{status="success"}[5m]) / rate(http_requests_total[5m])) < 0.95'
+        for: 10m
+        labels:
+          severity: warning
+          service: llm-guard-proxy
+        annotations:
+          summary: 'Success rate below 95% (SLA violation)'
+          description: 'Success rate: {{ $value | humanizePercentage }}'
+
+      # Resource: High Memory Usage
+      - alert: HighMemoryUsage
+        expr: 'process_resident_memory_bytes / 1e9 > 0.5'
+        for: 5m
+        labels:
+          severity: warning
+          service: llm-guard-proxy
+        annotations:
+          summary: 'High memory usage (>500MB)'
+          description: 'Memory: {{ $value | humanize }}GB'
+
+      # Deployment: Pod Restart Rate
+      - alert: FrequentRestarts
+        expr: 'increase(kube_pod_container_status_restarts_total[1h]) > 3'
+        for: 5m
+        labels:
+          severity: warning
+          service: llm-guard-proxy
+        annotations:
+          summary: 'Pod restarting frequently'
+          description: 'Restarts in last hour: {{ $value }}'

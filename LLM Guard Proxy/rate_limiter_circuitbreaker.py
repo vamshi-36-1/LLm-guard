@@ -1,6 +1,6 @@
 """
 LLM-Guard: Rate Limiting & Request Queueing
-Person 1 - Week 2
+Week 2
 Implements token bucket rate limiting and request queue
 """
 

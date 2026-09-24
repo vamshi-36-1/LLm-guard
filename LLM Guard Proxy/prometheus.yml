@@ -1,0 +1,64 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'llm-guard'
+    service: 'proxy'
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+# Scrape configurations
+scrape_configs:
+  # Prometheus server
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # LLM-Guard Proxy metrics
+  - job_name: 'llm-guard-proxy'
+    scrape_interval: 10s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['proxy:8888']
+        labels:
+          service: 'llm-guard-proxy'
+          environment: 'production'
+
+  # Prometheus AlertManager
+  - job_name: 'alertmanager'
+    static_configs:
+      - targets: ['alertmanager:9093']
+
+  # Redis metrics
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+
+# Rules files
+rule_files:
+  - '/etc/prometheus/alert_rules.yml'
+
+# Recording rules for commonly calculated values
+rules:
+  - interval: 30s
+    rules:
+      # Request rate
+      - record: 'rate:http_requests:1m'
+        expr: 'rate(http_requests_total[1m])'
+      
+      # Error rate
+      - record: 'rate:http_errors:1m'
+        expr: 'rate(http_requests_total{status="errors"}[1m])'
+      
+      # Success rate
+      - record: 'rate:http_success:1m'
+        expr: 'rate(http_requests_total{status="success"}[1m])'
+      
+      # Latency average
+      - record: 'avg:http_latency:1m'
+        expr: 'avg(http_request_duration_ms)'

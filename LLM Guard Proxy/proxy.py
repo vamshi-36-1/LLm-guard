@@ -1,6 +1,6 @@
 """
 LLM-Guard: Complete Reverse Proxy with Jailbreak Detection
-Person 1 Work (Backend/Proxy) + Person 2 Integration (Detector)
+(Backend/Proxy) + (Detector)
 
 This proxy:
 1. Receives user requests
@@ -17,11 +17,7 @@ import sys
 import os
 from datetime import datetime
 
-# ============================================
-# ADD PERSON 2'S DETECTOR (YOUR CODE!)
-# ============================================
-# Import your detector
-sys.path.append("E:/Coding/PyCharm/LLM Guard/Jailbreak Detection/Jailbreak Detection System")
+sys.path.append("../Jailbreak Detection System")
 try:
     from hybrid_detector import HybridDetector
 except ImportError:
@@ -51,8 +47,8 @@ logger.info("🚀 Initializing LLM-Guard Jailbreak Detector...")
 
 try:
     detector = HybridDetector(
-        ml_model_path="E:/Coding\PyCharm/LLM Guard/Jailbreak Detection/Jailbreak Detection System/models/jailbreak_svm_v1.pkl",
-        rules_file="E:/Coding/PyCharm/LLM Guard/Jailbreak Detection/Jailbreak Detection System/jailbreak_patterns.json"
+        ml_model_path="../Jailbreak Detection System/models/jailbreak_svm_v1.pkl",
+        rules_file="../Jailbreak Detection System/jailbreak_patterns.json"
     )
     logger.info("✅ Detector initialized successfully!")
 except Exception as e:

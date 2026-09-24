@@ -1,4 +1,4 @@
-# Person 1: Week 2-3 Setup Guide
+# Week 2-3 Setup Guide
 
 **Project:** LLM-Guard Advanced Proxy with Rate Limiting & Monitoring  
 **Duration:** Weeks 2-3 (80 hours total)  
